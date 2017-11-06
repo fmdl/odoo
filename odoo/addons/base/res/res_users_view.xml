@@ -100,15 +100,23 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Rules">
-                            <field name="rule_groups">
-                                <tree string="Rules">
-                                    <field name="name"/>
-                                    <field name="model_id"/>
-                                    <field name="global"/>
-                                </tree>
-                            </field>
-                        </page><page string="Notes">
+                        <page string="Records Rules">
+                           <field name="rule_groups">
+                               <tree string="Records Rules" editable="bottom">
+                                   <field name="name"/>
+                                   <field name="groups" widget="many2many_tags" options="{'no_create':True}"/>
+                                   <field name="model_id"/>
+                                   <field name="global"/>
+                                   <field name="domain_force"/>
+                                   <field name="perm_read"/>
+                                   <field name="perm_write"/>
+                                   <field name="perm_create"/>
+                                   <field name="perm_unlink"/>
+                                   <field name="active"/>
+                              </tree>
+                           </field>
+                        </page>
+                        <page string="Notes">
                             <field name="comment"/>
                         </page>
                     </notebook>
