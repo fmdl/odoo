@@ -117,6 +117,20 @@
                                 </div>
                             </div>
                         </div>
+                        <h2>Contacts</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-md-6 o_setting_box" id="module_phone_validation_settings">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_phone_validation"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="module_phone_validation"/>
+                                    <div class="text-muted" id="module_phone_validation">
+                                        Validate and normalize phone numbers.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <h2>Integrations</h2>
                         <div class="row mt16 o_settings_container" name="integration">
                             <div class="col-xs-12 col-md-6 o_setting_box">

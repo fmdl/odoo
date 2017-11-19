@@ -13,7 +13,6 @@ You can track your vendors, customers and other contacts.
     'depends': ['base'],
     'data': [
         'views/contact_views.xml',
-        'views/res_config_settings_views.xml',
     ],
     'application': True,
 }
