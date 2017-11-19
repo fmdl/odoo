@@ -24,6 +24,7 @@ class ResConfigSettings(models.TransientModel):
     module_inter_company_rules = fields.Boolean("Manage Inter Company")
     module_pad = fields.Boolean("Collaborative Pads")
     module_voip = fields.Boolean("Asterisk (VoIP)")
+    module_phone_validation = fields.Boolean(string="Phone Validation")
     company_share_partner = fields.Boolean(string='Share partners to all companies',
         help="Share your partners to all companies defined in your instance.\n"
              " * Checked : Partners are visible for every companies, even if a company is defined on the partner.\n"
@@ -35,7 +36,6 @@ class ResConfigSettings(models.TransientModel):
             help="Allows to work in a multi currency environment")
     paperformat_id = fields.Many2one(related="company_id.paperformat_id", string='Paper format')
     external_report_layout = fields.Selection(related="company_id.external_report_layout")
-    module_phone_validation = fields.Boolean(string="Phone Validation")
 
     @api.model
     def get_values(self):
