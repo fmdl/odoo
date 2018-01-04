@@ -17,7 +17,7 @@
         quantity: 5.0
 -
   !python {model: account.invoice, id: demo_invoice_1}:
-    self.action_invoice_open()
+    self.filtered(lambda x: x.state == 'draft').action_invoice_open()
 -
   !record {model: account.invoice, id: demo_invoice_2}:
     partner_id: base.res_partner_2
@@ -32,7 +32,7 @@
         quantity: 20
 -
   !python {model: account.invoice, id: demo_invoice_2}:
-    self.action_invoice_open()
+    self.filtered(lambda x: x.state == 'draft').action_invoice_open()
 -
   !record {model: account.invoice, id: demo_invoice_3}:
     partner_id: base.res_partner_2
@@ -47,7 +47,7 @@
         quantity: 5.0
 -
   !python {model: account.invoice, id: demo_invoice_3}:
-    self.action_invoice_open()
+    self.filtered(lambda x: x.state == 'draft').action_invoice_open()
 -
    Create an invoice that will generate a followup
 -
@@ -67,7 +67,7 @@
         quantity: 5.0
 -
   !python {model: account.invoice, id: demo_invoice_followup}:
-    self.action_invoice_open()
+    self.filtered(lambda x: x.state == 'draft').action_invoice_open()
 -
    Set the context for supplier bills because the 'type' field is readonly in invoice form views, so it value won't be considered by the yaml import
 -
@@ -109,7 +109,7 @@
       if account:
           line_vals['account_id'] = account.id
           self._update('account.invoice.line', 'account', line_vals, 'ceo_wages_line')
-          self.env['account.invoice'].browse(ref('demo_invoice_january_wages')).action_invoice_open()
+          self.env['account.invoice'].browse(ref('demo_invoice_january_wages')).filtered(lambda x: x.state == 'draft').action_invoice_open()
 -
   !record {model: account.invoice, id: demo_invoice_equipment_purchase}:
     partner_id: base.res_partner_1
@@ -134,7 +134,7 @@
             line_vals['invoice_line_tax_ids'] = [(6, 0, [tax_id])]
           self._update('account.invoice.line', 'account', line_vals, 'coffee_machine_line')
           self.env['account.invoice'].browse(ref('demo_invoice_equipment_purchase'))._onchange_invoice_line_ids()
-          self.env['account.invoice'].browse(ref('demo_invoice_equipment_purchase')).action_invoice_open()
+          self.env['account.invoice'].browse(ref('demo_invoice_equipment_purchase')).filtered(lambda x: x.state == 'draft').action_invoice_open()
 
 -
   !python {model: account.bank.statement.line, id: False} : |
