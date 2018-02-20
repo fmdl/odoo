@@ -10,6 +10,7 @@
                     <group>
                         <field name="field_id"/>
                         <field name="json_value"/>
+                        <field name="condition"/>
                     </group>
                     <group>
                         <field name="user_id"/>
