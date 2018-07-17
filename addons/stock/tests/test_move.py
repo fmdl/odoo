@@ -487,7 +487,7 @@ class StockMove(TransactionCase):
 
     def test_mixed_tracking_reservation_5(self):
         move1 = self.env['stock.move'].create({
-            'name': 'test_jenaimarre_1',
+            'name': 'test_mixed_tracking_reservation_5',
             'location_id': self.stock_location.id,
             'location_dest_id': self.customer_location.id,
             'product_id': self.product2.id,
@@ -527,7 +527,7 @@ class StockMove(TransactionCase):
         # create an untracked quant
         self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 1.0)
         move1 = self.env['stock.move'].create({
-            'name': 'test_jenaimarre_1',
+            'name': 'test_mixed_tracking_reservation_6',
             'location_id': self.stock_location.id,
             'location_dest_id': self.customer_location.id,
             'product_id': self.product2.id,
