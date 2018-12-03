@@ -161,7 +161,7 @@
                   <field name="application"/>
                   <templates>
                     <t t-name="kanban-box">
-                      <div class="oe_module_vignette">
+                      <div class="oe_module_vignette oe_kanban_global_click">
                         <t t-set="installed" t-value="record.state.raw_value == 'installed'"/>
                         <div class="o_dropdown_kanban dropdown" tabindex="-1">
                             <a class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" href="#" role="button" aria-label="Dropdown menu" title="Dropdown menu">
