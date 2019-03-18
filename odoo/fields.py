@@ -524,6 +524,9 @@ class Field(MetaField('DummyField', (object,), {})):
         # determine the chain of fields, and make sure they are all set up
         target = model
         for name in self.related:
+            if name not in target._fields:
+                raise KeyError("Field : '%s', this field '%s' of '%s' doesn't exist."
+                               % (self, name, '.'.join(self.related)))
             field = target._fields[name]
             field.setup_full(target)
             target = target[name]
