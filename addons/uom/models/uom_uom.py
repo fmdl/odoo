@@ -15,6 +15,7 @@ class UoMCategory(models.Model):
         ('weight', 'Weight'),
         ('time', 'Time'),
         ('length', 'Length'),
+        ('area', 'Area'),
         ('volume', 'Volume'),
     ], string="Type of Measure")
 
