@@ -5252,7 +5252,7 @@ Record ids: %(records)s
         return self.browse([rec.id for rec in self if func(rec)])
 
     def filtered_domain(self, domain):
-        if not domain: return self
+        if not self or not domain: return self
         result = []
         for d in reversed(domain):
             if d == '|':
