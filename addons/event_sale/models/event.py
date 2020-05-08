@@ -116,7 +116,7 @@ class EventTicket(models.Model):
             record.price_reduce_taxinc = taxes['total_included']
 
     @api.multi
-    @api.depends('seats_max', 'registration_ids.state')
+    @api.depends('seats_max', 'registration_ids', 'registration_ids.state')
     def _compute_seats(self):
         """ Determine reserved, available, reserved but unconfirmed and used seats. """
         # initialize fields to 0 + compute seats availability
