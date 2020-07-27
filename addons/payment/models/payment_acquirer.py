@@ -413,6 +413,7 @@ class PaymentAcquirer(models.Model):
                 billing_partner = self.env['res.partner'].browse(billing_partner_id)
             else:
                 billing_partner = partner
+            country = partner.country_id or self.env['res.company']._company_default_get().country_id
             values.update({
                 'partner': partner,
                 'partner_id': partner_id,
@@ -422,10 +423,13 @@ class PaymentAcquirer(models.Model):
                 'partner_zip': partner.zip,
                 'partner_city': partner.city,
                 'partner_address': _partner_format_address(partner.street, partner.street2),
-                'partner_country_id': partner.country_id.id or self.env['res.company']._company_default_get().country_id.id,
-                'partner_country': partner.country_id,
+                'partner_country_id': country.id,
+                'partner_country': country,
+                'partner_country_name': country.name,
                 'partner_phone': partner.phone,
+                'partner_state_id': partner.state_id.id,
                 'partner_state': partner.state_id,
+                'partner_state_name': partner.state_id.name,
                 'billing_partner': billing_partner,
                 'billing_partner_id': billing_partner_id,
                 'billing_partner_name': billing_partner.name,
@@ -437,8 +441,11 @@ class PaymentAcquirer(models.Model):
                 'billing_partner_address': _partner_format_address(billing_partner.street, billing_partner.street2),
                 'billing_partner_country_id': billing_partner.country_id.id,
                 'billing_partner_country': billing_partner.country_id,
+                'billing_partner_country_name': billing_partner.country_id.name,
                 'billing_partner_phone': billing_partner.phone,
+                'billing_partner_state_id': billing_partner.state_id.id,
                 'billing_partner_state': billing_partner.state_id,
+                'billing_partner_state_name': billing_partner.state_id.name,
             })
         if values.get('partner_name'):
             values.update({
@@ -459,7 +466,10 @@ class PaymentAcquirer(models.Model):
         if not values.get('billing_partner_address'):
             values['billing_address'] = _partner_format_address(values.get('billing_partner_street', ''), values.get('billing_partner_street2', ''))
         if not values.get('billing_partner_country') and values.get('billing_partner_country_id'):
-            values['billing_country'] = self.env['res.country'].browse(values.get('billing_partner_country_id'))
+            country = self.env['res.country'].browse(values.get('billing_partner_country_id'))
+            values['billing_country_id'] = country.id
+            values['billing_country'] = country
+            values['billing_country_name'] = country.name
 
         # compute fees
         fees_method_name = '%s_compute_fees' % self.provider
