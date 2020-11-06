@@ -10,6 +10,7 @@
                 <tree string="Partner Titles" editable="bottom">
                     <field name="name"/>
                     <field name="shortcut"/>
+                    <field name="active"/>
                 </tree>
             </field>
         </record>
@@ -19,7 +20,9 @@
             <field name="arch" type="xml">
                 <form string="Partner Titles">
                     <sheet>
-                        <group col="4">
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="active" invisible="1"/>
+                        <group name="info">
                             <field name="name"/>
                             <field name="shortcut"/>
                         </group>
@@ -33,7 +36,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner.title</field>
             <field name="domain">[]</field>
-            <field name="context">{}</field>
+            <field name="context">{'active_test':False}</field>
             <field name="help">Manage the contact titles you want to have available in your system and the way you want to print them in letters and other documents. Some example: Mr., Mrs. </field>
         </record>
 
