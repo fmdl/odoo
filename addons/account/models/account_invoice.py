@@ -700,7 +700,7 @@ class AccountInvoice(models.Model):
         if self.env.context.get('mark_invoice_as_sent'):
             self.filtered(lambda inv: not inv.sent).write({'sent': True})
             self.env.user.company_id.set_onboarding_step_done('account_onboarding_sample_invoice_state')
-        return super(AccountInvoice, self.with_context(mail_post_autofollow=True)).message_post(**kwargs)
+        return super(AccountInvoice, self.with_context(mail_post_autofollow=self.env.context.get('mail_post_autofollow', True))).message_post(**kwargs)
 
     @api.model
     def message_new(self, msg_dict, custom_values=None):
