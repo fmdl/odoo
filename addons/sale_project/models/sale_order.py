@@ -125,6 +125,16 @@ class SaleOrderLine(models.Model):
     def _compute_is_service(self):
         for so_line in self:
             so_line.is_service = so_line.product_id.type == 'service'
+            
+    @api.depends('task_id.stage_id.is_closed')
+    def _compute_qty_delivered(self):
+        super(SaleOrderLine, self)._compute_qty_delivered()
+        for line in self:
+            if line.is_service and line.product_id.service_type == 'manual' and line.task_id:
+                if line.task_id.stage_id.is_closed:
+                    line.qty_delivered = line.product_uom_qty
+                else:
+                    line.qty_delivered = 0
 
     @api.depends('product_id')
     def _compute_product_updatable(self):
