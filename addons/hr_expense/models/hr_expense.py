@@ -552,6 +552,8 @@ class HrExpense(models.Model):
 
         if not company:  # ultimate fallback, since company_id is required on expense
             company = self.env.company
+            
+        self = self.with_context(force_company=company.id)
 
         product, price, currency_id, expense_description = self._parse_expense_subject(expense_description, currencies)
         vals = {
