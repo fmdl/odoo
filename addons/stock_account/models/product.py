@@ -650,8 +650,15 @@ class ProductProduct(models.Model):
         if not qty_to_invoice:
             return 0.0
 
-        if not qty_to_invoice:
-            return 0
+        if stock_moves.product_id != self:
+            product_moves = defaultdict(lambda: self.env['stock.move'])
+            for sm in stock_moves:
+                product_moves[sm.product_id] |= stock_moves
+            value = 0
+            for product, moves in product_moves.items():
+                qty = sum(moves.mapped('product_qty'))
+                value += product._compute_average_price(qty_invoiced * qty, qty_to_invoice * qty, moves)
+            return value
 
         candidates = stock_moves\
             .sudo()\
