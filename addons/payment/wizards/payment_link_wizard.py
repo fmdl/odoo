@@ -96,7 +96,7 @@ class PaymentLinkWizard(models.TransientModel):
             partner_id = related_document.partner_id
             currency_id = related_document.currency_id
             selection.extend(
-                self._get_payment_provider_available(
+                (str(p[0]), p[1]) for p in self._get_payment_provider_available(
                     res_model=res_model,
                     res_id=res_id,
                     company_id=company_id.id,
@@ -141,7 +141,7 @@ class PaymentLinkWizard(models.TransientModel):
                 **self._get_additional_link_values(),
             }
             if payment_link.payment_provider_selection != 'all':
-                url_params['provider_id'] = str(payment_link.payment_provider_selection)
+                url_params['provider_id'] = payment_link.payment_provider_selection
             payment_link.link = f'{base_url}/payment/pay?{urls.url_encode(url_params)}'
 
     def _get_additional_link_values(self):
