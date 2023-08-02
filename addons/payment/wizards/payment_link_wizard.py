@@ -123,7 +123,8 @@ class PaymentLinkWizard(models.TransientModel):
     def _get_access_token(self):
         self.ensure_one()
         return payment_utils.generate_access_token(
-            self.partner_id.id, self.amount, self.currency_id.id
+            self.partner_id.id, self.amount, self.currency_id.id, 
+            int(self.payment_provider_selection) if self.payment_provider_selection != 'all' else False,
         )
 
     @api.depends(

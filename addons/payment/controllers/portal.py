@@ -72,7 +72,8 @@ class PaymentPortal(portal.CustomerPortal):
 
         # Raise an HTTP 404 if a partner is provided with an invalid access token
         if partner_id:
-            if not payment_utils.check_access_token(access_token, partner_id, amount, currency_id):
+            if not payment_utils.check_access_token(access_token, partner_id, amount, currency_id, provider_id) or \
+                not payment_utils.check_access_token(access_token, partner_id, amount, currency_id): # TODO remove in master, keep backward compatibility for link with provider not in token
                 raise werkzeug.exceptions.NotFound()  # Don't leak information about ids.
 
         user_sudo = request.env.user
