@@ -55,7 +55,7 @@ class PaymentLinkWizard(models.TransientModel):
         required=True,
     )
 
-    @api.onchange('amount', 'description')
+    @api.onchange('amount', 'amount_max', 'currency_id')
     def _onchange_amount(self):
         if float_compare(self.amount_max, self.amount, precision_rounding=self.currency_id.rounding or 0.01) == -1:
             raise ValidationError(_("Please set an amount smaller than %s.", self.amount_max))
@@ -128,7 +128,7 @@ class PaymentLinkWizard(models.TransientModel):
 
     @api.depends(
         'description', 'amount', 'currency_id', 'partner_id', 'company_id',
-        'payment_provider_selection',
+        'payment_provider_selection', 'res_model', 'res_id'
     )
     def _compute_link(self):
         for payment_link in self:
